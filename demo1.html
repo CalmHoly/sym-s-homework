@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div class="page-content">
+      <div class="button-box">
+        <input id="dotInput" type="text" placeholder="输入格式:1,2" />
+        <button id="addDot">初始坐标</button>
+        <button id="closeButton">闭合</button>
+        <button id="resetButton">重置</button>
+      </div>
+      <div class="canvas-content">
+        <canvas id="myCanvas" ref="myCanvas"></canvas>
+      </div>
+    </div>
+  </body>
+  <script>
+    window.onload = function () {
+      // 全局canvas对象
+      const canvas = document.getElementById("myCanvas");
+      // canvas.width = document.body.clientWidth;
+      // canvas.height = document.body.clientHeight;
+      const ctx = canvas.getContext("2d");
+      function $(id) {
+        return document.getElementById(id);
+      }
+      // 重置
+      $("resetButton").onclick = function () {
+        $("addDot").innerText = "初始坐标";
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      };
+      // 闭合
+      $("closeButton").onclick = function () {
+        ctx.closePath();
+        ctx.stroke();
+      };
+      // 添加坐标
+      $("addDot").onclick = function () {
+        let dotValue = $("dotInput").value;
+        if (!dotValue) {
+          alert("请输入坐标");
+          return;
+        }
+        let reg = /\d+,\d+/;
+        if (!reg.test(dotValue)) {
+          alert("请输入正确的坐标，格式：数字+英文逗号+数字");
+          return;
+        }
+        reg = null;
+        let leftDot = dotValue.split(",")[0];
+        let rightDot = dotValue.split(",")[1];
+        dotValue = null;
+        // 初始点
+        if ($("addDot").innerText === "初始坐标") {
+          ctx.beginPath();
+          // 起点
+          ctx.moveTo(leftDot, rightDot);
+          $("addDot").innerText = "添加坐标";
+          return;
+        }
+        // 添加点
+        ctx.lineTo(leftDot, rightDot);
+        ctx.stroke();
+        leftDot = null;
+        rightDot = null;
+      };
+    };
+  </script>
+  <style>
+    html,
+    body {
+      padding: 0;
+      margin: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .button-box {
+      margin: 10px;
+    }
+    .page-content {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    .canvas-content {
+      flex: 1;
+      /* margin: 10px; */
+      border: 1px solid sandybrown;
+    }
+  </style>
+</html>
