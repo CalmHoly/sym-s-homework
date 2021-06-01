@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <div class="button-box">
+      <input id="dotInput" type="text" placeholder="输入格式:1,2" />
+      <button id="addDot">初始坐标</button>
+      <button id="closeButton">闭合</button>
+      <button id="resetButton">重置</button>
+    </div>
+    <canvas class="canvas-content" id="canvas"></canvas>
+  </body>
+  <script>
+    let canvas = document.getElementById("canvas");
+    canvas.width = document.body.clientWidth - 20;
+    canvas.height = document.body.clientHeight - 65;
+    let ctx = canvas.getContext("2d");
+    //外边距
+    let AXIS_MARGIN = 0,
+      //原点，将之设置到画布左下区域
+      AXIS_ORIGIN = { x: AXIS_MARGIN, y: canvas.height - AXIS_MARGIN },
+      //y轴顶点位置
+      AXIS_TOP = AXIS_MARGIN,
+      //x轴顶点位置
+      AXIS_RIGHT = canvas.width - AXIS_MARGIN,
+      // 放大倍率
+      MAGNIFICATION = 10,
+      //X轴长度
+      AXIS_WIDTH = AXIS_RIGHT - AXIS_ORIGIN.x,
+      //y轴长度
+      AXIS_HEIGHT = AXIS_ORIGIN.y - AXIS_TOP,
+      //y轴上的点的最大值
+      NUM_VERTICAL_TICKS = AXIS_HEIGHT / MAGNIFICATION,
+      NUM_HORIZONTAL_TICKS = AXIS_WIDTH / MAGNIFICATION,
+      TICK_WIDTH = 10,
+      TICKS_LINEWIDTH = 1,
+      TICK_COLOR = "#000",
+      AXIS_LINEWIDTH = 1,
+      AXIS_COLOR = "#000";
+  </script>
+  <script src="./js/axis.js"></script>
+  <script src="./js/index.js"></script>
+  <script>
+    window.onload = function () {
+      drawGrid("lightgray", MAGNIFICATION);
+      drawAxis();
+    };
+  </script>
+</html>
