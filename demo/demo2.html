@@ -57,14 +57,14 @@
         x2 = i2 * 20;
         y2 = Math.sin(i2) * 50 + 200;
         content.moveTo(x2, y2);
-        content.arc(x2, y2, 5, 0, 2 * Math.PI, false);
-        content.fillStyle = "black";
+        content.arc(x2, y2, 3, 0, 2 * Math.PI, false);
+        // content.fillStyle = "black";
         content.fill();
 
-        content.font = "bold 12px Arial";
-        content.textAlign = "left";
-        content.textBaseline = "bottom";
-        content.fillStyle = "#333";
+        // content.font = "bold 12px Arial";
+        // content.textAlign = "left";
+        // content.textBaseline = "bottom";
+        // content.fillStyle = "#333";
         content.fillText("x:" + parseInt(x2), x2, y2 - 24);
         content.fillText("y:" + parseInt(y2), x2, y2 - 12);
         content.closePath();
@@ -73,10 +73,10 @@
       setInterval(moveSin, 10);
 
       function pointInterval() {
-        setInterval(moveSin2, 6000);
+        setInterval(moveSin2, 600);
       }
 
-      setTimeout("pointInterval()", 1000);
+      setTimeout("pointInterval()", 100);
     </script>
   </body>
 </html>
