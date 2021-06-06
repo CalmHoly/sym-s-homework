@@ -17,6 +17,8 @@ function addDotText(leftDot, rightDot) {
     (-rightDot + canvas.height) / MAGNIFICATION
   })`;
   box.appendChild(numberDiv);
+  // 添加点之后清空输入框
+  $("dotInput").value = "";
 }
 // 重置
 $("resetButton").onclick = function () {
@@ -26,6 +28,7 @@ $("resetButton").onclick = function () {
 $("closeButton").onclick = function () {
   ctx.closePath();
   ctx.stroke();
+  $("areaButton").style.display = "inline-block";
 };
 // 添加坐标
 $("addDot").onclick = function () {
@@ -54,6 +57,8 @@ $("addDot").onclick = function () {
     alert(`纵坐标需大于0小于${canvas.height / 10}`);
     return;
   }
+  // 加入点数组中
+  dotArr.push([leftDot, rightDot]);
   // y轴坐标颠倒
   rightDot = -rightDot + canvas.height;
   // 初始点
@@ -75,4 +80,20 @@ $("addDot").onclick = function () {
   addDotText(leftDot, rightDot);
   leftDot = null;
   rightDot = null;
+};
+$("areaButton").onclick = function () {
+  // console.log(dotArr);
+  if (dotArr.length < 3) {
+    alert("小于3个点无法计算～");
+    return;
+  }
+  for (let i = 0, len = dotArr.length; i < len; i++) {
+    iArea +=
+      dotArr[i][0] * dotArr[(i + 1) % len][1] -
+      dotArr[(i + 1) % len][0] * dotArr[i][1];
+  }
+  //
+  iArea = Math.abs(iArea * 0.5) / Math.pow(MAGNIFICATION, 2);
+  $("areaText").innerText = `计算面积结果：${iArea}`;
+  $("areaText").style.display = "inline-block";
 };
